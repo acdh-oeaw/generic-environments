@@ -1,4 +1,4 @@
-FROM registry.gitlab.com/acdh-oeaw/docker/generic-environments/shell:latest
+FROM ghcr.io/acdh-oeaw/generic-environments/shell:latest
 MAINTAINER Hannes Pirker <hannes.pirker@oeaw.ac.at>
 
 ## minimal "perl" environment for testing
