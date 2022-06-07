@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 MAINTAINER Hannes Pirker <hannes.pirker@oeaw.ac.at>
 
 # copy to both $HOME and /root (which is the $HOME for root
