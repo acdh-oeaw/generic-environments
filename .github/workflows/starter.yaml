@@ -1,38 +1,23 @@
 name: workflows starter
-# env: is empty, see setup-env and the outputs there
 on:
   push: {}
   workflow_dispatch: {}
 jobs:
   setup_workflow_env:
     runs-on: ubuntu-latest
-# Optionally specify the environment that should be used on this branch
-    # environment: review/dev
     outputs:
-# It seems you have to specify the environment twice (passed to reusable workflow)
-# as there is no way yet to get the active environment
-      # environment: review/dev
-# or see the switch on ref_name script below
       environment: ${{ steps.get_environment_from_git_ref.outputs.environment }}
       environment_short: ${{ steps.get_environment_from_git_ref.outputs.environment_short }}
       image_name: your-image-name
-# Please note that the next line only works correctly with repositories that don't contain
-# upper case characters. If you have such a repo name please replace ${{ github.repository }}
-# with org/repo-name (all lower case).
-# E. g. ACDH-OEAW/OpenAtlas-Discovery -> acdh-oeaw/openatlas-discovery
       registry_root: ghcr.io/${{ github.repository }}/
       default_port: "5000"
 # Usually you don't deal with all commits since the repository was created.
 # Increase if you e.g don't find a tag you want to display in the application
-      fetch-depth: 10
-      submodules: "true"
-#      herokuish_base_image: ghcr.io/acdh-oeaw/herokuish-for-cypress/main:latest-22
-      APP_NAME: your-app-name
+      fetch-depth: 1
+      submodules: "false"
+      APP_NAME: generic-env
 # This together with the branch name is also used as the namespace to deploy to
-      APP_ROOT: "/"     
-      # SERVICE_ID: "99999" # Better use GtiHub environment variables for this
-      # PUBLIC_URL: "https://some-stuff.acdh-ch-dev.oeaw.ac.at" # Use GitHub environment variables for a stable custom public url
-      # POSTGRES_ENABLED: "false" # needs to be set to true to enable a postgres db installed next to the deployed app
+      APP_ROOT: "/"
 # You should not need to have to change anything below this line
 #-----------------------------------------------------------------------------------------------------
     steps:
