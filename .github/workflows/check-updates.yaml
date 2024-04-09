@@ -15,7 +15,7 @@ jobs:
       - name: check perlsimple container
         id: check_perlsimple_container
         run: |
-          check_result="$(docker run --rm -u 0:0 --entrypoint /bin/bash ghcr.io/acdh-oeaw/generic-environment/perlsimple-docker:${{ github.ref_name }} \
+          check_result="$(docker run --rm -u 0:0 --entrypoint /bin/bash ghcr.io/acdh-oeaw/generic-environment/perlsimple:${{ github.ref_name }} \
             -c 'apt-get update >/dev/null; if [ $(apt list --upgradable 2>/dev/null | wc -l) != 1 ]; then echo -n need to upgrade; else echo -n everything fine ; fi')"
           echo "$check_result"
           echo "check_result=$check_result" >> $GITHUB_OUTPUT
