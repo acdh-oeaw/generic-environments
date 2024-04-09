@@ -8,7 +8,7 @@ jobs:
     outputs:
       environment: ${{ steps.get_environment_from_git_ref.outputs.environment }}
       environment_short: ${{ steps.get_environment_from_git_ref.outputs.environment_short }}
-      image_name: your-image-name
+# This workflow builds multiple images
       registry_root: ghcr.io/${{ github.repository }}/
       default_port: "5000"
 # Usually you don't deal with all commits since the repository was created.
@@ -58,7 +58,7 @@ jobs:
     with:
       environment: ${{ needs.setup_workflow_env.outputs.environment }}
       registry_root: ${{ needs.setup_workflow_env.outputs.registry_root }}
-      image_name: ${{ needs.setup_workflow_env.outputs.image_name }}
+      image_name: shell
       default_port: ${{ needs.setup_workflow_env.outputs.default_port }}
       PUBLIC_URL: ${{ needs.generate_workflow_vars.outputs.PUBLIC_URL }}
       fetch-depth: ${{ fromJson(needs.setup_workflow_env.outputs.fetch-depth) }}
@@ -72,7 +72,7 @@ jobs:
     with:
       environment: ${{ needs.setup_workflow_env.outputs.environment }}
       registry_root: ${{ needs.setup_workflow_env.outputs.registry_root }}
-      image_name: ${{ needs.setup_workflow_env.outputs.image_name }}
+      image_name: perl
       default_port: ${{ needs.setup_workflow_env.outputs.default_port }}
       PUBLIC_URL: ${{ needs.generate_workflow_vars.outputs.PUBLIC_URL }}
       fetch-depth: ${{ fromJson(needs.setup_workflow_env.outputs.fetch-depth) }}
@@ -86,7 +86,7 @@ jobs:
     with:
       environment: ${{ needs.setup_workflow_env.outputs.environment }}
       registry_root: ${{ needs.setup_workflow_env.outputs.registry_root }}
-      image_name: ${{ needs.setup_workflow_env.outputs.image_name }}
+      image_name: perlsimple
       default_port: ${{ needs.setup_workflow_env.outputs.default_port }}
       PUBLIC_URL: ${{ needs.generate_workflow_vars.outputs.PUBLIC_URL }}
       fetch-depth: ${{ fromJson(needs.setup_workflow_env.outputs.fetch-depth) }}
@@ -100,7 +100,7 @@ jobs:
     with:
       environment: ${{ needs.setup_workflow_env.outputs.environment }}
       registry_root: ${{ needs.setup_workflow_env.outputs.registry_root }}
-      image_name: ${{ needs.setup_workflow_env.outputs.image_name }}
+      image_name: java8
       default_port: ${{ needs.setup_workflow_env.outputs.default_port }}
       PUBLIC_URL: ${{ needs.generate_workflow_vars.outputs.PUBLIC_URL }}
       fetch-depth: ${{ fromJson(needs.setup_workflow_env.outputs.fetch-depth) }}
