@@ -1,0 +1,26 @@
+name:
+  daily security update
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: "5 4 * * *"
+
+jobs:
+  check_for_updates:
+    runs-on: ubuntu-latest
+    outputs:
+      check_result: ${{ steps.check_perlsimple_container.outputs.check_result }}
+    steps:
+      - name: check perlsimple container
+        id: check_perlsimple_container
+        run: |
+          check_result="$(docker run --rm -u 0:0 --entrypoint /bin/bash ghcr.io/acdh-oeaw/generic-environment/perlsimple-docker:${{ github.ref_name }} \
+            -c 'apt-get update >/dev/null; if [ $(apt list --upgradable 2>/dev/null | wc -l) != 1 ]; then echo -n need to upgrade; else echo -n everything fine ; fi')"
+          echo "$check_result"
+          echo "check_result=$check_result" >> $GITHUB_OUTPUT
+  call_delploy:
+    needs: [check_for_updates]
+    if: needs.check_for_updates.outputs.check_result == 'need to upgrade'
+    uses: ./.github/workflows/starter.yaml
+    secrets: inherit
